@@ -6,7 +6,7 @@ import (
 )
 
 func Assign(e *echo.Echo) {
-	v1 := e.Group("/eagle-jump/v1")
+	v1 := e.Group("/eagle-jump/api/v1")
 
 	v1.GET("/users", handler.GetUsers)
 	v1.GET("/users/:id", handler.GetUser)

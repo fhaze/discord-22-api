@@ -49,7 +49,7 @@ ingress:
   hosts:
     - host: fhaze.cn
       paths:
-        - path: /eagle-jump
+        - path: /eagle-jump/api
           pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
