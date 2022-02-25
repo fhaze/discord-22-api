@@ -61,7 +61,7 @@ jobs:
             helm upgrade \
             --install eagle-jump-api charts/eagle-jump-api \
             --set image.tag=${{ steps.commit_hash.outputs.sha_short }} \
-            --set secrets.rootApiToken=${{ secrets.ROOT_API_TOKEN }} \
+            --set secrets.rootApiKey=${{ secrets.ROOT_API_KEY }} \
             --set secrets.dbHost=${{ secrets.DB_HOST }} \
             --set secrets.dbPort=${{ secrets.DB_PORT }} \
             --set secrets.dbName=${{ secrets.DB_NAME }} \

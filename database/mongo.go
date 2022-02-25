@@ -96,7 +96,7 @@ func (d *database) Disconnect() error {
 
 func NewMongo() Database {
 	cfg := config.Instance()
-	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s", cfg.DbUser, cfg.DbPass, cfg.DbHost, cfg.DbPort)
+	uri := fmt.Sprintf("mongodb://%s:%s@%s", cfg.DbUser, cfg.DbPass, cfg.DbHost)
 	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
 	if err != nil {
 		log.Fatal(err)

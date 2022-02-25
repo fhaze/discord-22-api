@@ -84,7 +84,6 @@ affinity: {}
 secrets:
   rootApiKey: eagle-jump-key
   dbHost: host
-  dbPort: 5000
   dbName: name
   dbUser: user
   dbPass: pass

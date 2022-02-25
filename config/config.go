@@ -6,7 +6,6 @@ import (
 
 type Config struct {
 	DbHost     string
-	DbPort     string
 	DbName     string
 	DbUser     string
 	DbPass     string
@@ -18,8 +17,7 @@ var cfg *Config
 func Instance() *Config {
 	if cfg == nil {
 		cfg = &Config{
-			DbHost:     getEnvDefault("DB_HOST", "localhost"),
-			DbPort:     getEnvDefault("DB_PORT", "27017"),
+			DbHost:     getEnvDefault("DB_HOST", "localhost:27017"),
 			DbName:     getEnvDefault("DB_NAME", "eaglejump"),
 			DbUser:     getEnvDefault("DB_USER", "root"),
 			DbPass:     getEnvDefault("DB_PASS", "password"),

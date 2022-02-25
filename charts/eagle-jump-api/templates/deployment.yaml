@@ -44,11 +44,6 @@ spec:
                 secretKeyRef:
                   key: dbHost
                   name: {{ .Release.Name }}-secret
-            - name: "DB_PORT"
-              valueFrom:
-                secretKeyRef:
-                  key: dbPort
-                  name: {{ .Release.Name }}-secret
             - name: "DB_NAME"
               valueFrom:
                 secretKeyRef:
