@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "eagle-jump-api.fullname" . }}
+  labels:
+    {{- include "eagle-jump-api.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "eagle-jump-api.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "eagle-jump-api.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "eagle-jump-api.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: "ROOT_API_KEY"
+            valueFrom:
+              secretKeyRef:
+                key: rootApiKey
+                name: { { .Release.Name } }-secret
+            - name: "DB_HOST"
+            valueFrom:
+              secretKeyRef:
+                key: dbHost
+                name: { { .Release.Name } }-secret
+            - name: "DB_PORT"
+            valueFrom:
+              secretKeyRef:
+                key: dbPort
+                name: { { .Release.Name } }-secret
+            - name: "DB_NAME"
+            valueFrom:
+              secretKeyRef:
+                key: dbName
+                name: { { .Release.Name } }-secret
+            - name: "DB_USER"
+            valueFrom:
+              secretKeyRef:
+                key: dbUser
+                name: { { .Release.Name } }-secret
+            - name: "DB_PASS"
+            valueFrom:
+              secretKeyRef:
+                key: dbPass
+                name: { { .Release.Name } }-secret
+          ports:
+            - name: http
+              containerPort: 8888
+              protocol: TCP
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
