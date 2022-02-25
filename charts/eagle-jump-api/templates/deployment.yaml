@@ -35,35 +35,35 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: "ROOT_API_KEY"
-            valueFrom:
-              secretKeyRef:
-                key: rootApiKey
-                name: { { .Release.Name } }-secret
+              valueFrom:
+                secretKeyRef:
+                  key: rootApiKey
+                  name: { { .Release.Name } }-secret
             - name: "DB_HOST"
-            valueFrom:
-              secretKeyRef:
-                key: dbHost
-                name: { { .Release.Name } }-secret
+              valueFrom:
+                secretKeyRef:
+                  key: dbHost
+                  name: { { .Release.Name } }-secret
             - name: "DB_PORT"
-            valueFrom:
-              secretKeyRef:
-                key: dbPort
-                name: { { .Release.Name } }-secret
+              valueFrom:
+                secretKeyRef:
+                  key: dbPort
+                  name: { { .Release.Name } }-secret
             - name: "DB_NAME"
-            valueFrom:
-              secretKeyRef:
-                key: dbName
-                name: { { .Release.Name } }-secret
+              valueFrom:
+                secretKeyRef:
+                  key: dbName
+                  name: { { .Release.Name } }-secret
             - name: "DB_USER"
-            valueFrom:
-              secretKeyRef:
-                key: dbUser
-                name: { { .Release.Name } }-secret
+              valueFrom:
+                secretKeyRef:
+                  key: dbUser
+                  name: { { .Release.Name } }-secret
             - name: "DB_PASS"
-            valueFrom:
-              secretKeyRef:
-                key: dbPass
-                name: { { .Release.Name } }-secret
+              valueFrom:
+                secretKeyRef:
+                  key: dbPass
+                  name: { { .Release.Name } }-secret
           ports:
             - name: http
               containerPort: 8888
