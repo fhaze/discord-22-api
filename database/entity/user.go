@@ -8,6 +8,7 @@ import (
 type User struct {
 	ID           primitive.ObjectID `bson:"_id,omitempty" json:"-"`
 	DiscordId    string             `bson:"discordId,omitempty" json:"discordId,omitempty"`
+	Avatar       string             `bson:"avatar,omitempty" json:"avatar,omitempty"`
 	Name         string             `bson:"name,omitempty" json:"name,omitempty"`
 	MessageCount int64              `bson:"messageCount,omitempty" json:"messageCount"`
 	CommandCount int64              `bson:"commandCount,omitempty" json:"commandCount"`
