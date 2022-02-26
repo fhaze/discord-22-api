@@ -1,7 +1,7 @@
 package database
 
 import (
-	"eagle-jump-api/entity"
+	"discord-22-api/entity"
 	"github.com/labstack/gommon/log"
 )
 

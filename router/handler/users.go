@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"eagle-jump-api/database"
-	"eagle-jump-api/entity"
-	"eagle-jump-api/router/model"
+	"discord-22-api/database"
+	"discord-22-api/entity"
+	"discord-22-api/router/model"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"go.mongodb.org/mongo-driver/mongo"

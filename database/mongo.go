@@ -2,8 +2,8 @@ package database
 
 import (
 	"context"
-	"eagle-jump-api/config"
-	"eagle-jump-api/entity"
+	"discord-22-api/config"
+	"discord-22-api/entity"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

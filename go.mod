@@ -1,4 +1,4 @@
-module eagle-jump-api
+module discord-22-api
 
 go 1.17
 

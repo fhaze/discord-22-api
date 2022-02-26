@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "eagle-jump-api.name" -}}
+{{- define "discord-22-api.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "eagle-jump-api.fullname" -}}
+{{- define "discord-22-api.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "eagle-jump-api.chart" -}}
+{{- define "discord-22-api.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "eagle-jump-api.labels" -}}
-helm.sh/chart: {{ include "eagle-jump-api.chart" . }}
-{{ include "eagle-jump-api.selectorLabels" . }}
+{{- define "discord-22-api.labels" -}}
+helm.sh/chart: {{ include "discord-22-api.chart" . }}
+{{ include "discord-22-api.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "eagle-jump-api.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "eagle-jump-api.name" . }}
+{{- define "discord-22-api.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "discord-22-api.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "eagle-jump-api.serviceAccountName" -}}
+{{- define "discord-22-api.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "eagle-jump-api.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "discord-22-api.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

@@ -35,7 +35,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/eagle-jump-api:${{ steps.commit_hash.outputs.sha_short }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/discord-22-api:${{ steps.commit_hash.outputs.sha_short }}
 
   deploy_tencent:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
         with:
           args: |
             helm upgrade \
-            --install eagle-jump-api charts/eagle-jump-api \
+            --install discord-22-api charts/discord-22-api \
             --set image.tag=${{ steps.commit_hash.outputs.sha_short }} \
             --set secrets.rootApiKey=${{ secrets.ROOT_API_KEY }} \
             --set secrets.dbHost=${{ secrets.DB_HOST }} \

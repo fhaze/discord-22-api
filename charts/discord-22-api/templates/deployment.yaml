@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "eagle-jump-api.fullname" . }}
+  name: {{ include "discord-22-api.fullname" . }}
   labels:
-    {{- include "eagle-jump-api.labels" . | nindent 4 }}
+    {{- include "discord-22-api.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "eagle-jump-api.selectorLabels" . | nindent 6 }}
+      {{- include "discord-22-api.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "eagle-jump-api.selectorLabels" . | nindent 8 }}
+        {{- include "discord-22-api.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "eagle-jump-api.serviceAccountName" . }}
+      serviceAccountName: {{ include "discord-22-api.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

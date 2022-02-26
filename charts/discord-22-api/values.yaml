@@ -1,11 +1,11 @@
-# Default values for eagle-jump-api.
+# Default values for discord-22-api.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: fhaze/eagle-jump-api
+  repository: fhaze/discord-22-api
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -49,7 +49,7 @@ ingress:
   hosts:
     - host: fhaze.cn
       paths:
-        - path: /eagle-jump/api
+        - path: /22/api
           pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
@@ -82,7 +82,7 @@ tolerations: []
 affinity: {}
 
 secrets:
-  rootApiKey: eagle-jump-key
+  rootApiKey: discord-22-key
   dbHost: host
   dbName: name
   dbUser: user

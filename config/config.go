@@ -21,7 +21,7 @@ func Instance() *Config {
 			DbName:     getEnvDefault("DB_NAME", "eaglejump"),
 			DbUser:     getEnvDefault("DB_USER", "root"),
 			DbPass:     getEnvDefault("DB_PASS", "password"),
-			RootApiKey: getEnvDefault("ROOT_API_KEY", "eagle-jump-key"),
+			RootApiKey: getEnvDefault("ROOT_API_KEY", "22-key"),
 		}
 	}
 	return cfg

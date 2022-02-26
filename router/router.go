@@ -1,12 +1,12 @@
 package router
 
 import (
-	"eagle-jump-api/router/handler"
+	"discord-22-api/router/handler"
 	"github.com/labstack/echo/v4"
 )
 
 func Assign(e *echo.Echo) {
-	v1 := e.Group("/eagle-jump/api/v1")
+	v1 := e.Group("/22/api/v1")
 
 	v1.GET("/users", handler.GetUsers)
 	v1.GET("/users/:id", handler.GetUser)
