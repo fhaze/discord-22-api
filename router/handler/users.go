@@ -2,7 +2,7 @@ package handler
 
 import (
 	"eagle-jump-api/database"
-	"eagle-jump-api/database/entity"
+	"eagle-jump-api/entity"
 	"eagle-jump-api/router/model"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"

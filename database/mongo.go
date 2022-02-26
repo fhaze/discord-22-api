@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 	"eagle-jump-api/config"
-	"eagle-jump-api/database/entity"
+	"eagle-jump-api/entity"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

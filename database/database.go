@@ -1,7 +1,7 @@
 package database
 
 import (
-	"eagle-jump-api/database/entity"
+	"eagle-jump-api/entity"
 	"github.com/labstack/gommon/log"
 )
 

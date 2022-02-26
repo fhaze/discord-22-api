@@ -14,6 +14,7 @@ type User struct {
 	CommandCount int64              `bson:"commandCount,omitempty" json:"commandCount"`
 	EagleCoin    int64              `bson:"eagleCoin,omitempty" json:"eagleCoin"`
 	JoinedAt     time.Time          `bson:"joinedAt" json:"joinedAt"`
+	Bot          bool               `bson:"bot" json:"bot"`
 	Exp          int64              `json:"exp"`
 	RequiredExp  int64              `json:"requiredExp"`
 	Level        int64              `json:"level"`
