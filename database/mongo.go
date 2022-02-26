@@ -48,7 +48,9 @@ func (d *database) GetUser(id string) (user *entity.User, err error) {
 		Collection("user").
 		FindOne(d.ctx, bson.D{{"discordId", id}}).
 		Decode(&user)
-	user.Calculate()
+	if user != nil {
+		user.Calculate()
+	}
 	return
 }
 

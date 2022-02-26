@@ -18,7 +18,7 @@ func Instance() *Config {
 	if cfg == nil {
 		cfg = &Config{
 			DbHost:     getEnvDefault("DB_HOST", "localhost:27017"),
-			DbName:     getEnvDefault("DB_NAME", "eaglejump"),
+			DbName:     getEnvDefault("DB_NAME", "discord-22"),
 			DbUser:     getEnvDefault("DB_USER", "root"),
 			DbPass:     getEnvDefault("DB_PASS", "password"),
 			RootApiKey: getEnvDefault("ROOT_API_KEY", "22-key"),
