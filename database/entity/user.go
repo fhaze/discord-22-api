@@ -14,4 +14,24 @@ type User struct {
 	CommandCount int64              `bson:"commandCount,omitempty" json:"commandCount"`
 	EagleCoin    int64              `bson:"eagleCoin,omitempty" json:"eagleCoin"`
 	JoinedAt     time.Time          `bson:"joinedAt" json:"joinedAt"`
+	Exp          int64              `json:"exp"`
+	RequiredExp  int64              `json:"requiredExp"`
+	Level        int64              `json:"level"`
+}
+
+func (u *User) Calculate() {
+	msgScore := float64(u.MessageCount)*.18 + float64(u.CommandCount)*.23
+	timeScore := time.Now().Sub(u.JoinedAt).Hours()
+	u.Exp = int64(msgScore + timeScore)
+
+	level := float64(0)
+	for true {
+		level++
+		required := level * 100
+		u.RequiredExp = int64(required)
+		if float64(u.Exp) < required {
+			u.Level = int64(level)
+			break
+		}
+	}
 }

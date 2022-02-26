@@ -30,6 +30,7 @@ func (d *database) GetAllUsers() (users []*entity.User, err error) {
 	for cur.Next(d.ctx) {
 		var user *entity.User
 		err = cur.Decode(&user)
+		user.Calculate()
 		if err != nil {
 			return
 		}
@@ -47,6 +48,7 @@ func (d *database) GetUser(id string) (user *entity.User, err error) {
 		Collection("user").
 		FindOne(d.ctx, bson.D{{"discordId", id}}).
 		Decode(&user)
+	user.Calculate()
 	return
 }
 
