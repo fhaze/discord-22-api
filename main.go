@@ -11,12 +11,13 @@ import (
 )
 
 func main() {
-	fieldMap := logrus.FieldMap{}
-	fieldMap[logrus.FieldKeyTime] = "timestamp"
-	logrus.SetFormatter(&logrus.JSONFormatter{FieldMap: fieldMap})
+	logrus.SetFormatter(&logrus.JSONFormatter{DisableTimestamp: true})
 
 	e := echo.New()
-	e.Use(middleware.Logger())
+	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Format: `{"id":"${id}","remote_ip":"${remote_ip}",` +
+		`"host":"${host}","method":"${method}","uri":"${uri}","user_agent":"${user_agent}",` +
+		`"status":${status},"error":"${error}","latency":${latency},"latency_human":"${latency_human}"` +
+		`,"bytes_in":${bytes_in},"bytes_out":${bytes_out}}` + "\n"}))
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			ex := &ctx.Extended{Context: c}
