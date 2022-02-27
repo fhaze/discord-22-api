@@ -81,6 +81,9 @@ tolerations: []
 
 affinity: {}
 
+config:
+  commitHash: commit_hash
+
 secrets:
   rootApiKey: discord-22-key
   dbHost: host

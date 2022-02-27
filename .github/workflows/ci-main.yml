@@ -66,4 +66,5 @@ jobs:
             --set secrets.dbPort=${{ secrets.DB_PORT }} \
             --set secrets.dbName=${{ secrets.DB_NAME }} \
             --set secrets.dbUser=${{ secrets.DB_USER }} \
-            --set secrets.dbPass=${{ secrets.DB_PASS }}
+            --set secrets.dbPass=${{ secrets.DB_PASS }} \
+            --set config.commitHash=${{ steps.commit_hash.outputs.sha_short }}

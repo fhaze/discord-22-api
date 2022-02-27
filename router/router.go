@@ -8,6 +8,8 @@ import (
 func Assign(e *echo.Echo) {
 	v1 := e.Group("/22/api/v1")
 
+	v1.GET("/version", handler.GetVersion)
+
 	v1.GET("/users", handler.GetUsers)
 	v1.GET("/users/:id", handler.GetUser)
 	v1.POST("/users", handler.PostUser)

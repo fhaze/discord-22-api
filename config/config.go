@@ -10,6 +10,7 @@ type Config struct {
 	DbUser     string
 	DbPass     string
 	RootApiKey string
+	CommitHash string
 }
 
 var cfg *Config
@@ -22,6 +23,7 @@ func Instance() *Config {
 			DbUser:     getEnvDefault("DB_USER", "root"),
 			DbPass:     getEnvDefault("DB_PASS", "password"),
 			RootApiKey: getEnvDefault("ROOT_API_KEY", "22-key"),
+			CommitHash: getEnvDefault("COMMIT_HASH", "Unknown"),
 		}
 	}
 	return cfg
