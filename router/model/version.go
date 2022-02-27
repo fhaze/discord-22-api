@@ -1,5 +1,5 @@
 package model
 
 type Version struct {
-	Version string `json:"version"`
+	Tag string `json:"tag"`
 }
