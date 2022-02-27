@@ -1,4 +1,4 @@
-name: Deploy Eagle Jump
+name: Deploy Discord 22 Api
 
 on:
   push:
@@ -52,7 +52,7 @@ jobs:
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "SHA_SHORT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-      - name: Deploy eagle jump api to Cluster
+      - name: Deploy discord 22 api to cluster
         uses: wahyd4/kubectl-helm-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
