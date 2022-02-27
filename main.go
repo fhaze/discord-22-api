@@ -15,8 +15,7 @@ func main() {
 
 	e := echo.New()
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Format: `{"id":"${id}","method":"${method}","uri":"${uri}","user_agent":"${user_agent}",` +
-		`"status":${status},"error":"${error}","latency":${latency_human}"` +
-		`,"bytes_in":${bytes_in},"bytes_out":${bytes_out}}` + "\n"}))
+		`"status":${status},"latency":"${latency}","bytes_in":${bytes_in},"bytes_out":${bytes_out}}` + "\n"}))
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			ex := &ctx.Extended{Context: c}
