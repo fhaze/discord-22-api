@@ -11,9 +11,12 @@ import (
 )
 
 func main() {
-	logrus.SetFormatter(&logrus.JSONFormatter{})
+	fieldMap := logrus.FieldMap{}
+	fieldMap[logrus.FieldKeyTime] = "timestamp"
+	logrus.SetFormatter(&logrus.JSONFormatter{FieldMap: fieldMap})
 
 	e := echo.New()
+	e.Use(middleware.Logger())
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			ex := &ctx.Extended{Context: c}
@@ -21,7 +24,6 @@ func main() {
 		}
 	})
 	e.Use(middleware.RequestID())
-	e.Use(middleware.Logger())
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			key := c.Request().Header.Get("X-22-KEY")

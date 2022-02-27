@@ -16,7 +16,7 @@ func GetUsers(c echo.Context) error {
 	if err != nil {
 		return c.NoContent(http.StatusInternalServerError)
 	}
-	ctx.From(c).LogInfo("got users list")
+	ctx.From(c).LogInfof("got users list")
 	return c.JSON(http.StatusOK, users)
 }
 
@@ -27,14 +27,14 @@ func GetUser(c echo.Context) error {
 	}
 	user, err := database.Instance().GetUser(discordId)
 	if err == mongo.ErrNoDocuments {
-		ctx.From(c).LogInfo("user not found by id=%d", discordId)
+		ctx.From(c).LogInfof("user not found by id=%d", discordId)
 		return c.NoContent(http.StatusNotFound)
 	}
 	if err != nil {
 		ctx.From(c).LogError(err)
 		return c.NoContent(http.StatusInternalServerError)
 	}
-	ctx.From(c).LogInfo("got user id=%s", user.ID)
+	ctx.From(c).LogInfof("got user id=%v", user.ID.Hex())
 	return c.JSON(http.StatusOK, user)
 }
 
@@ -48,7 +48,7 @@ func PostUser(c echo.Context) error {
 		ctx.From(c).Error(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
-	ctx.From(c).LogInfo("created user id=%s name=%s", user.ID, user.Name)
+	ctx.From(c).LogInfof("created user id=%v name=%s", user.ID.Hex(), user.Name)
 	return c.JSON(http.StatusOK, user)
 }
 
