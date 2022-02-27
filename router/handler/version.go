@@ -8,5 +8,6 @@ import (
 )
 
 func GetVersion(c echo.Context) error {
-	return c.JSON(http.StatusOK, model.Version{Tag: config.Instance().CommitHash})
+	tag := config.Instance().CommitHash
+	return c.JSON(http.StatusOK, model.Version{Tag: tag})
 }

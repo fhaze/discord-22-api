@@ -2,7 +2,6 @@ package database
 
 import (
 	"discord-22-api/entity"
-	"github.com/labstack/gommon/log"
 )
 
 type Database interface {
@@ -18,9 +17,7 @@ var db Database
 
 func Instance() Database {
 	if db == nil {
-		log.Info("Initialising Database...")
 		db = NewMongo()
-		log.Info("Database OK!")
 	}
 	return db
 }
