@@ -76,6 +76,6 @@ func PutSumCommandCount(c echo.Context) error {
 		ctx.From(c).LogError(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
-	ctx.From(c).LogInfof("user sum message discordId=%s count=%d", discordId, messageCount.Count)
+	ctx.From(c).LogInfof("user sum command discordId=%s count=%d", discordId, messageCount.Count)
 	return c.NoContent(http.StatusOK)
 }
