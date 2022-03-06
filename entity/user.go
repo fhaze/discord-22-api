@@ -2,6 +2,8 @@ package entity
 
 import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"math"
+	"strings"
 	"time"
 )
 
@@ -18,6 +20,7 @@ type User struct {
 	Exp          int64              `json:"exp"`
 	RequiredExp  int64              `json:"requiredExp"`
 	Level        int64              `json:"level"`
+	Icons        string             `json:"icons"`
 }
 
 func (u *User) Calculate() {
@@ -35,4 +38,41 @@ func (u *User) Calculate() {
 			break
 		}
 	}
+	u.Icons = calculateIcons(level)
+}
+
+func calculateIcons(level float64) string {
+	var icons []string
+	var suns float64
+	var moons float64
+	var stars float64
+	var diff float64
+
+	suns = math.Floor(level / 16)
+	if suns < 1 {
+		diff = level
+	} else {
+		diff = level - math.Floor(suns*16)
+	}
+
+	moons = math.Floor(level / 4)
+	if moons < 1 {
+		diff = level
+	} else {
+		diff = level - math.Floor(moons*4)
+	}
+
+	stars = diff
+
+	for i := 0.; i < suns; i++ {
+		icons = append(icons, "☀")
+	}
+	for i := 0.; i < moons; i++ {
+		icons = append(icons, "🌙")
+	}
+	for i := 0.; i < stars; i++ {
+		icons = append(icons, "⭐")
+	}
+
+	return strings.Join(icons, "")
 }

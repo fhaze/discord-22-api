@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
@@ -36,4 +37,11 @@ func TestUserFirstLevelUp556Messages(t *testing.T) {
 			assert.Equal(t, int64(1), u.Level)
 		}
 	}
+}
+
+func TestUserIcons(t *testing.T) {
+	u := new(User)
+	u.Level = 31
+
+	fmt.Println(calculateIcons(float64(u.Level)))
 }
