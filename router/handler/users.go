@@ -14,6 +14,7 @@ import (
 func GetUsers(c echo.Context) error {
 	users, err := database.Instance().GetAllUsers()
 	if err != nil {
+		ctx.From(c).Error(err)
 		return c.NoContent(http.StatusInternalServerError)
 	}
 	ctx.From(c).LogInfof("got users list")
