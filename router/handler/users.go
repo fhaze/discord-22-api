@@ -14,7 +14,7 @@ import (
 func GetUsers(c echo.Context) error {
 	users, err := database.Instance().GetAllUsers()
 	if err != nil {
-		ctx.From(c).Error(err)
+		ctx.From(c).LogError(err)
 		return c.NoContent(http.StatusInternalServerError)
 	}
 	ctx.From(c).LogInfof("got users list")
@@ -46,7 +46,7 @@ func PostUser(c echo.Context) error {
 	}
 	user.JoinedAt = time.Now()
 	if err := database.Instance().SaveUser(user); err != nil {
-		ctx.From(c).Error(err)
+		ctx.From(c).LogError(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 	ctx.From(c).LogInfof("created user id=%v name=%s", user.ID.Hex(), user.Name)
