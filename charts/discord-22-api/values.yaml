@@ -81,9 +81,6 @@ tolerations: []
 
 affinity: {}
 
-config:
-  commitHash: {{ .Values.image.tag }}
-
 secrets:
   rootApiKey: discord-22-key
   dbHost: host

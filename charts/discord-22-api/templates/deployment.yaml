@@ -35,7 +35,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: "COMMIT_HASH"
-              value: {{ .Values.config.commitHash }}
+              value: {{ .Values.image.tag }}
             - name: "ROOT_API_KEY"
               valueFrom:
                 secretKeyRef:
