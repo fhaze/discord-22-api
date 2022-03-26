@@ -44,12 +44,12 @@ ingress:
   enabled: true
   className: ""
   annotations:
-    kubernetes.io/ingress.class: nginx
+    # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
     - host: fhaze.cn
       paths:
-        - path: /22/api
+        - path: /discord-22/api
           pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
@@ -82,7 +82,7 @@ tolerations: []
 affinity: {}
 
 config:
-  commitHash: commit_hash
+  commitHash: {{ .Values.image.tag }}
 
 secrets:
   rootApiKey: discord-22-key
