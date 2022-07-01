@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo"
 	"log"
 )
 
@@ -101,7 +102,7 @@ func (d *database) Disconnect() error {
 func NewMongo() Database {
 	cfg := config.Instance()
 	uri := fmt.Sprintf("mongodb://%s:%s@%s", cfg.DbUser, cfg.DbPass, cfg.DbHost)
-	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
+	client, err := mongo.NewClient(options.Client().ApplyURI(uri).SetMonitor(otelmongo.NewMonitor()))
 	if err != nil {
 		log.Fatal(err)
 	}
