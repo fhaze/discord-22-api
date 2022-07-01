@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
 	"discord-22-api/config"
 	"discord-22-api/ctx"
 	"discord-22-api/router"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/sdk/trace"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -12,8 +16,27 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+func initTracer() func() {
+	c := context.Background()
+	exporter, err := otlptracegrpc.New(c)
+
+	if err != nil {
+		logrus.Fatal("failed to initialise exporter: %v", err)
+	}
+
+	tp := trace.NewTracerProvider(
+		trace.WithBatcher(exporter),
+	)
+
+	otel.SetTracerProvider(tp)
+
+	return func() { _ = tp.Shutdown(c) }
+}
+
 func main() {
 	logrus.SetFormatter(&logrus.JSONFormatter{DisableTimestamp: true})
+	cleanup := initTracer()
+	defer cleanup()
 
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
