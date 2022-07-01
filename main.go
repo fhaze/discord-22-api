@@ -4,6 +4,7 @@ import (
 	"discord-22-api/config"
 	"discord-22-api/ctx"
 	"discord-22-api/router"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/labstack/echo/otelecho"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -21,6 +22,7 @@ func main() {
 	}))
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{Format: `{"id":"${id}","method":"${method}","uri":"${uri}","user_agent":"${user_agent}",` +
 		`"status":${status},"latency":"${latency}","bytes_in":${bytes_in},"bytes_out":${bytes_out}}` + "\n"}))
+	e.Use(otelecho.Middleware("discord-22-api"))
 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			ex := &ctx.Extended{Context: c}
