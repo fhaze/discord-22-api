@@ -12,7 +12,7 @@ import (
 )
 
 func GetUsers(c echo.Context) error {
-	users, err := database.Instance().GetAllUsers()
+	users, err := database.Instance().GetAllUsers(c.Request().Context())
 	if err != nil {
 		ctx.From(c).LogError(err)
 		return c.NoContent(http.StatusInternalServerError)
@@ -26,7 +26,7 @@ func GetUser(c echo.Context) error {
 	if discordId == "" {
 		return c.NoContent(http.StatusBadRequest)
 	}
-	user, err := database.Instance().GetUser(discordId)
+	user, err := database.Instance().GetUser(c.Request().Context(), discordId)
 	if err == mongo.ErrNoDocuments {
 		ctx.From(c).LogInfof("user not found by id=%d", discordId)
 		return c.NoContent(http.StatusNotFound)
@@ -45,7 +45,7 @@ func PostUser(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 	user.JoinedAt = time.Now()
-	if err := database.Instance().SaveUser(user); err != nil {
+	if err := database.Instance().SaveUser(c.Request().Context(), user); err != nil {
 		ctx.From(c).LogError(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
@@ -59,7 +59,7 @@ func PutSumMessageCount(c echo.Context) error {
 	if err := c.Bind(messageCount); err != nil || discordId == "" {
 		return c.JSON(http.StatusBadRequest, err)
 	}
-	if err := database.Instance().SumUserMessageCount(discordId, messageCount.Count); err != nil {
+	if err := database.Instance().SumUserMessageCount(c.Request().Context(), discordId, messageCount.Count); err != nil {
 		ctx.From(c).LogError(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
@@ -73,7 +73,7 @@ func PutSumCommandCount(c echo.Context) error {
 	if err := c.Bind(messageCount); err != nil || discordId == "" {
 		return c.JSON(http.StatusBadRequest, err)
 	}
-	if err := database.Instance().SumUserCommandCount(discordId, messageCount.Count); err != nil {
+	if err := database.Instance().SumUserCommandCount(c.Request().Context(), discordId, messageCount.Count); err != nil {
 		ctx.From(c).LogError(err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}

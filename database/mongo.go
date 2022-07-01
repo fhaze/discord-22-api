@@ -18,12 +18,12 @@ type database struct {
 	ctx    context.Context
 }
 
-func (d *database) GetAllUsers() (users []*entity.User, err error) {
+func (d *database) GetAllUsers(context context.Context) (users []*entity.User, err error) {
 	users = make([]*entity.User, 0)
 	cur, err := d.client.
 		Database(config.Instance().DbName).
 		Collection("user").
-		Find(d.ctx, bson.D{{}})
+		Find(context, bson.D{{}})
 	if err != nil {
 		return
 	}
@@ -40,14 +40,14 @@ func (d *database) GetAllUsers() (users []*entity.User, err error) {
 	return
 }
 
-func (d *database) GetUser(id string) (user *entity.User, err error) {
+func (d *database) GetUser(context context.Context, id string) (user *entity.User, err error) {
 	if err != nil {
 		return
 	}
 	err = d.client.
 		Database(config.Instance().DbName).
 		Collection("user").
-		FindOne(d.ctx, bson.D{{"discordId", id}}).
+		FindOne(context, bson.D{{"discordId", id}}).
 		Decode(&user)
 	if user != nil {
 		user.Calculate()
@@ -55,12 +55,12 @@ func (d *database) GetUser(id string) (user *entity.User, err error) {
 	return
 }
 
-func (d *database) SaveUser(user *entity.User) error {
+func (d *database) SaveUser(context context.Context, user *entity.User) error {
 	if user.DiscordId == "" {
 		insertedClient, err := d.client.
 			Database(config.Instance().DbName).
 			Collection("user").
-			InsertOne(d.ctx, user)
+			InsertOne(context, user)
 		if err != nil {
 			return err
 		}
@@ -71,7 +71,7 @@ func (d *database) SaveUser(user *entity.User) error {
 		_, err := d.client.
 			Database(config.Instance().DbName).
 			Collection("user").
-			UpdateOne(d.ctx, bson.M{"discordId": user.DiscordId}, bson.D{{"$set", user}}, &options.UpdateOptions{Upsert: &upsert})
+			UpdateOne(context, bson.M{"discordId": user.DiscordId}, bson.D{{"$set", user}}, &options.UpdateOptions{Upsert: &upsert})
 		if err != nil {
 			return err
 		}
@@ -79,19 +79,19 @@ func (d *database) SaveUser(user *entity.User) error {
 	return nil
 }
 
-func (d *database) SumUserMessageCount(discordId string, sum int64) (err error) {
+func (d *database) SumUserMessageCount(context context.Context, discordId string, sum int64) (err error) {
 	_, err = d.client.
 		Database(config.Instance().DbName).
 		Collection("user").
-		UpdateOne(d.ctx, bson.M{"discordId": discordId}, bson.D{{"$inc", bson.M{"messageCount": sum}}})
+		UpdateOne(context, bson.M{"discordId": discordId}, bson.D{{"$inc", bson.M{"messageCount": sum}}})
 	return
 }
 
-func (d *database) SumUserCommandCount(discordId string, sum int64) (err error) {
+func (d *database) SumUserCommandCount(context context.Context, discordId string, sum int64) (err error) {
 	_, err = d.client.
 		Database(config.Instance().DbName).
 		Collection("user").
-		UpdateOne(d.ctx, bson.M{"discordId": discordId}, bson.D{{"$inc", bson.M{"commandCount": sum}}})
+		UpdateOne(context, bson.M{"discordId": discordId}, bson.D{{"$inc", bson.M{"commandCount": sum}}})
 	return
 }
 
